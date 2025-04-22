@@ -1,36 +1,107 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📅 Meetly – A Simple Calendly Clone
 
-## Getting Started
+**Meetly** is a lightweight, fullstack appointment scheduling app built with the latest technologies. It allows users to define their availability and enables visitors to book meetings without creating an account.
 
-First, run the development server:
+Built with **Next.js 15 App Router**, **Tailwind CSS**, **Shadcn UI**, **Prisma**, and **BetterAuth**.
+
+---
+
+## 🚀 Tech Stack
+
+| Tech           | Purpose                                         |
+| -------------- | ----------------------------------------------- |
+| `Next.js 14`   | App Router, server components, API routes       |
+| `Tailwind CSS` | Utility-first CSS styling                       |
+| `shadcn/ui`    | Reusable UI components with headless primitives |
+| `Prisma ORM`   | PostgreSQL database access                      |
+| `Neon`         | Serverless PostgreSQL hosting                   |
+| `BetterAuth`   | Simple email/password authentication            |
+| `Zod`          | Schema validation for API safety                |
+
+---
+
+## 🧩 Features
+
+- ✅ Register/Login with hashed passwords
+- ✅ JWT authentication via HttpOnly cookies
+- ✅ Dashboard for availability management
+- ✅ Public booking page per user (e.g. `/john-doe`)
+- ✅ Time-slot based scheduling
+- ✅ Client & server validation (Zod + Toasts)
+- ✅ Prevent double-booking
+- ✅ Responsive and modern UI
+- ✅ Ready for Vercel deployment
+
+---
+
+## 🖥️ App Overview
+
+### 👤 User (Admin)
+- Register, login and manage your availability (days & times)
+- View upcoming appointments
+
+### 🌐 Visitor
+- Access a user’s public booking page
+- Choose an available slot and submit your name/email
+- Receive confirmation instantly
+
+---
+
+**\## 🧱 Project Structure (not yet final)**
+
+├── app/                       # content route app
+
+│   ├── register/              # User registration page
+
+│   ├── login/                 # User login page
+
+│   ├── dashboard/             # User dashboard for availability management
+
+│   └── api/
+
+│       ├── auth/              # API routes for register/login
+
+│       ├── book/              # API route to handle bookings
+
+│       └── availability/      # API to fetch user availabilities
+
+│
+
+├── utils/                     # date check function
+
+├── components/
+
+│   ├── ui/                    # UI components from shadcn/ui
+
+│   └── custom/                # Custom components (e.g. forms, calendar)
+
+│
+
+├── prisma/
+
+│   └── schema.prisma          # Database schema definition
+
+│
+
+├── lib/
+
+│   └── prisma.ts              # Prisma client singleton
+
+│
+
+├── tailwind.config.js         # Tailwind CSS configuration
+
+├── .env.local                 # Environment variables (DB URL, JWT secret)
+
+
+---
+
+## 🛠️ Getting Started
+
+### 1. Clone & Install
 
 ```bash
+git clone https://github.com/freddy-jop/meetly.git
+cd meetly
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
