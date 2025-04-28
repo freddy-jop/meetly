@@ -14,18 +14,38 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  username      String    @unique
-  emailVerified Boolean
-  image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
-  sessions      Session[]
-  accounts      Account[]
+  id             String         @id @default(cuid())
+  name           String?        @unique
+  email          String?        @unique
+  username       String?
+  emailVerified  Boolean
+  image          String?
+  createdAt      DateTime
+  updatedAt      DateTime
+  sessions       Session[]
+  accounts       Account[]
+  appointments   Appointment[]
+  availabilities Availability[]
 
   @@map("user")
+}
+
+model Availability {
+  id        String @id @default(cuid())
+  userId    String
+  dayOfWeek Int // 0 - 6 (Sun - Sat)
+  startTime String // "9:00"
+  endTime   String // "18:00"
+  user      User   @relation(fields: [userId], references: [id])
+}
+
+model Appointment {
+  id           String   @id @default(cuid())
+  userId       String
+  visitorName  String
+  visitorEmail String
+  date         DateTime
+  user         User     @relation(fields: [userId], references: [id])
 }
 
 model Session {
