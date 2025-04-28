@@ -14,42 +14,50 @@ import {
 } from '@/store/availability.store';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Availability } from '@prisma/client';
+import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useEffect } from 'react';
+import { Plus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
 export const AvailabilityForm = ({ username }: UserNameType) => {
-  //const [disabledDays, setDisabledDays] = useState<number[]>([]);
   const disabledDays = useAvailabilityStore(useShallow((state) => state.disabledDays));
+  const setCheckAvailabilityList = useAvailabilityStore(useShallow((state) => state.setCheckAvailabilityList));
+  const checkAvailabilityList = useAvailabilityStore(useShallow((state) => state.checkAvailabilityList));
+
   const form = useForm<AvailabilityType>({
     resolver: zodResolver(AvailabilitySchema),
     defaultValues: {
-      dayOfWeek: 0,
+      dayOfWeek: '',
       startTime: '',
       endTime: '',
     },
   });
 
-  useEffect(() => {
-    const fetchAvailability = async () => {
+  useQuery({
+    queryKey: ['availability', String(checkAvailabilityList)],
+    enabled: checkAvailabilityList,
+    queryFn: async () => {
       try {
-        const res = await axios.get('/api/availability', {
+        const result = await axios.get('/api/availability', {
           params: {
             username: username,
           },
         });
-        const data: Array<Availability> = res.data ?? [];
-        setAvailabilitiesAndDisabledDays(data);
-      } catch (error) {
+        const data: Array<Availability> = result.data;
+        if (data) {
+          setCheckAvailabilityList(false);
+          setAvailabilitiesAndDisabledDays(data);
+        }
+      } catch (err) {
+        const error = err as Error;
         setAvailabilitiesAndDisabledDays([]);
-        throw error;
+        toast.error(`Error Appointments: ${error.message}`);
+        throw err; // Propagation de l'erreur pour que React Query la prenne en compte
       }
-    };
-    fetchAvailability();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    },
+  });
 
   async function onSubmit(data: AvailabilityType) {
     try {
@@ -112,37 +120,39 @@ export const AvailabilityForm = ({ username }: UserNameType) => {
           </FormItem>
         )}
       />
+      <div className="grid grid-cols-2 gap-4">
+        <FormField
+          control={form.control}
+          name="startTime"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Heure de début</FormLabel>
+              <FormControl>
+                <Input placeholder="09:00" {...field} type="time" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-      <FormField
-        control={form.control}
-        name="startTime"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Heure de début</FormLabel>
-            <FormControl>
-              <Input placeholder="09:00" {...field} type="time" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+        <FormField
+          control={form.control}
+          name="endTime"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Heure de fin</FormLabel>
+              <FormControl>
+                <Input placeholder="10:00" {...field} type="time" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
 
-      <FormField
-        control={form.control}
-        name="endTime"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Heure de fin</FormLabel>
-            <FormControl>
-              <Input placeholder="10:00" {...field} type="time" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <Button type="submit" className="col-span-3">
-        Ajouter
+      <Button type="submit" className="w-full">
+        <Plus className="size-5 sm:mr-2" />
+        Ajouter une disponibilité
       </Button>
     </Form>
   );

@@ -13,7 +13,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
-export default function LoginForm() {
+export const LoginForm = () => {
   const router = useRouter();
 
   const form = useForm<LoginType>({
@@ -33,18 +33,12 @@ export default function LoginForm() {
             password: form.password, // user password -> min 8 characters by default
           },
           {
-            onRequest: (ctx) => {
-              console.log('loading :::: ', ctx);
-              //show loading
-            },
-            onSuccess: (ctx) => {
-              //redirect to the dashboard or sign in page
-              toast.success(`Registration is successed with ${ctx.data}`);
+            onSuccess: () => {
+              toast.success('Connexion réussie, redirection en cours...'); //redirect to the dashboard page
               router.push('/dashboard');
             },
             onError: (ctx) => {
-              // display the error message
-              toast.error(ctx.error.message);
+              toast.error(ctx.error.message); // display the error message
             },
           },
         );
@@ -57,7 +51,7 @@ export default function LoginForm() {
 
   return (
     <Form
-      className="space-y-4"
+      className="space-y-6"
       form={form}
       onSubmit={async (values) => {
         await processLogin(values);
@@ -68,9 +62,14 @@ export default function LoginForm() {
         name="email"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Email</FormLabel>
+            <FormLabel className="text-gray-700">Email</FormLabel>
             <FormControl>
-              <Input type="email" {...field} disabled={isPendingLogin} />
+              <Input
+                type="email"
+                {...field}
+                disabled={isPendingLogin}
+                className="rounded-lg text-gray-700 border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -81,17 +80,26 @@ export default function LoginForm() {
         name="password"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Mot de passe</FormLabel>
+            <FormLabel className="text-gray-700">Mot de passe</FormLabel>
             <FormControl>
-              <Input type="password" {...field} disabled={isPendingLogin} />
+              <Input
+                type="password"
+                {...field}
+                disabled={isPendingLogin}
+                className="rounded-lg text-gray-700 border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
-      <Button type="submit" className="w-full" disabled={isPendingLogin}>
+      <Button
+        type="submit"
+        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition disabled:opacity-50"
+        disabled={isPendingLogin}
+      >
         {isPendingLogin ? 'Connexion...' : 'Se connecter'}
       </Button>
     </Form>
   );
-}
+};

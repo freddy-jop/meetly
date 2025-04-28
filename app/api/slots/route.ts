@@ -1,24 +1,20 @@
 import { prisma } from '@/auth/prisma';
-import { auth } from '@/lib/auth';
 import { addMinutes, format, isBefore } from 'date-fns';
-import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {
-  const session = await auth.api.getSession({
-    headers: await headers(), // you need to pass the headers object.
-  });
-
-  if (!session || !session?.user) {
-    return new NextResponse('Unauthorised', { status: 401 });
-  }
-
   const { searchParams } = new URL(req.url);
-  const userId = searchParams.get('user');
+  const userName = searchParams.get('user');
   const dateStr = searchParams.get('date'); // yyyy-mm-dd
 
-  if (!userId || !dateStr) {
+  if (!userName || !dateStr) {
     return new NextResponse('Missing user or date', { status: 400 });
+  }
+
+  const user = await prisma.user.findUnique({ where: { name: userName } });
+
+  if (!user) {
+    return new Response('User is missing', { status: 400 });
   }
 
   const date = new Date(dateStr);
@@ -27,14 +23,14 @@ export async function GET(req: Request) {
   try {
     const availabilities = await prisma.availability.findMany({
       where: {
-        userId: session?.user.id,
+        userId: user.id,
         dayOfWeek: Number(dayOfWeek),
       },
     });
 
     const takenAppointments = await prisma.appointment.findMany({
       where: {
-        userId: session?.user.id,
+        userId: user.id,
         date: {
           gte: new Date(dateStr + 'T00:00:00'),
           lt: new Date(dateStr + 'T23:59:59'),

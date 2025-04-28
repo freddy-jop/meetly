@@ -36,7 +36,6 @@ export default function VisitorCalendar({ username }: UserNameType) {
   const { watch, setValue } = form;
   const emailValue = watch('email');
 
-  // 🔥 Génération automatique du username
   useEffect(() => {
     if (emailValue && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
       const [usernamePart] = emailValue.split('@');
@@ -46,10 +45,10 @@ export default function VisitorCalendar({ username }: UserNameType) {
     }
   }, [emailValue, setValue]);
 
-  // Fetch des jours disponibles
   useEffect(() => {
     const fetchAvailability = async () => {
       try {
+        // axios.get pour Fetch les jours disponibles
         const res = await axios.get('/api/availability', {
           params: {
             username: username,
@@ -72,11 +71,11 @@ export default function VisitorCalendar({ username }: UserNameType) {
     return availableDays.includes(date.getDay());
   }
 
-  // React Query pour fetch slots
   const { data: slotsData } = useQuery({
     queryKey: ['slots', username, selectedDate?.toISOString()],
     queryFn: async () => {
       if (!selectedDate) return { slots: [] };
+      // axios.get fetch slots
       const res = await axios.get('/api/slots', {
         params: {
           user: username,
@@ -89,7 +88,7 @@ export default function VisitorCalendar({ username }: UserNameType) {
     enabled: !!selectedDate,
   });
 
-  // Utilisation de slots récupérés
+  // Recupération des slots
   const slots = slotsData?.slots || [];
 
   async function handleSubmit(values: BookingType) {
@@ -136,9 +135,9 @@ export default function VisitorCalendar({ username }: UserNameType) {
         }}
         modifiersClassNames={{
           available: 'font-bold text-blue-600', // Jours disponibles en bleu
-          selected: 'bg-blue-500 text-white', // Date sélectionnée en bleu plein
-          today: 'text-red-500', // Aujourd'hui en rouge
-          weekend: 'text-gray-400', // Weekend en gris
+          selected: 'font-bold text-white bg-blue-600 rounded-full', // Date sélectionnée en bleu plein
+          today: 'text-red-500 font-bold', // Aujourd'hui en rouge
+          weekend: 'text-indigo-600', // Weekend en gris
         }}
         disabled={(date) => {
           const today = new Date();

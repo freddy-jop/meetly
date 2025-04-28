@@ -9,6 +9,7 @@ export const AppointmentList = () => {
   const { data, isPending } = useQuery({
     queryKey: ['appointments'],
     enabled: true,
+    refetchOnWindowFocus: false,
     queryFn: async () => {
       try {
         const result = await axios.get('/api/appointments');
@@ -26,7 +27,7 @@ export const AppointmentList = () => {
   return (
     <ul className="space-y-2">
       {data.map((appt: any) => (
-        <li key={appt.id} className="border p-2 rounded">
+        <li key={appt.id} className="border p-3 rounded">
           {appt.visitorName} — {new Date(appt.date).toLocaleString()}
         </li>
       ))}

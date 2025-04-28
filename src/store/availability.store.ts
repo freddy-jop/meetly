@@ -33,6 +33,7 @@ export const useAvailabilityStore = create<AvailabilityType>((set) => ({
 }));
 
 export const setAvailabilitiesAndDisabledDays = (currentAvailability: Array<Availability>) => {
+  console.log('currentAvailability :::', currentAvailability);
   useAvailabilityStore.setState((state) => ({
     availabilityList: state.availabilityList
       ? [...currentAvailability, ...state.availabilityList]

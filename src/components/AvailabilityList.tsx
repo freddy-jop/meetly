@@ -37,7 +37,7 @@ export const AvailabilityList = () => {
   if (!availabilityList) return <p>Chargement des disponibilités en cours...</p>;
 
   return (
-    <ul className="space-y-2">
+    <ul className="space-y-3">
       {availabilityList.map((availability: Availability) => (
         <AvailabilityItem key={availability.id} availability={availability} />
       ))}

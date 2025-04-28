@@ -68,7 +68,7 @@ export default function RegisterForm() {
 
   return (
     <Form
-      className="space-y-4"
+      className="space-y-6"
       form={form}
       onSubmit={async (values) => {
         await processRegistration(values);
@@ -79,9 +79,13 @@ export default function RegisterForm() {
         name="email"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Email</FormLabel>
+            <FormLabel className="text-gray-700">Email</FormLabel>
             <FormControl>
-              <Input {...field} disabled={isPendingRegistration} />
+              <Input
+                {...field}
+                disabled={isPendingRegistration}
+                className="rounded-lg border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-gray-700"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -92,9 +96,13 @@ export default function RegisterForm() {
         name="username"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Nom d’utilisateur</FormLabel>
+            <FormLabel className="text-gray-700">Nom d’utilisateur</FormLabel>
             <FormControl>
-              <Input {...field} disabled />
+              <Input
+                {...field}
+                disabled
+                className="rounded-lg text-gray-700 border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -105,15 +113,24 @@ export default function RegisterForm() {
         name="password"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Mot de passe</FormLabel>
+            <FormLabel className="text-gray-700">Mot de passe</FormLabel>
             <FormControl>
-              <Input type="password" {...field} disabled={isPendingRegistration} />
+              <Input
+                type="password"
+                {...field}
+                disabled={isPendingRegistration}
+                className="rounded-lg text-gray-700 border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
-      <Button type="submit" className="w-full" disabled={isPendingRegistration}>
+      <Button
+        type="submit"
+        disabled={isPendingRegistration}
+        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition disabled:opacity-50"
+      >
         {isPendingRegistration ? 'Création...' : 'Créer le compte'}
       </Button>
     </Form>

@@ -35,8 +35,13 @@ export const BookingConfirmation = ({ visitor }: VisitorType) => {
   if (!booking) {
     return (
       <div className="flex flex-col items-center justify-center h-screen space-y-4">
-        <p className="text-lg font-semibold">Aucun rendez-vous trouvé.</p>
-        <Button onClick={() => router.push('/')}>Retour à l’accueil</Button>
+        <p className="text-lg font-semibold text-gray-800">Aucun rendez-vous trouvé.</p>
+        <Button
+          className="rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 p-4 text-[12px] font-semibold cursor-pointer text-white shadow-lg shadow-indigo-400/50 transition duration-300 ease-in-out hover:scale-105 sm:text-sm md:p-6 md:text-lg"
+          onClick={() => router.push('/')}
+        >
+          Retour à l’accueil
+        </Button>
       </div>
     );
   }
@@ -45,22 +50,33 @@ export const BookingConfirmation = ({ visitor }: VisitorType) => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen space-y-6 px-4 text-center">
-      <h1 className="text-3xl font-bold">Merci ! 🎉</h1>
-      <p className="text-lg">Ton rendez-vous est confirmé !</p>
+      <h1 className="text-3xl font-bold text-gray-500">Merci ! 🎉</h1>
+      <p className="text-lg text-gray-500">Ton rendez-vous est confirmé !</p>
 
       <div className="bg-gray-100 rounded-lg p-6 shadow-md space-y-4">
         <p>
-          <strong>Nom :</strong> {booking.visitorName}
+          <span className="font-semibold text-gray-800">
+            <strong>Nom :</strong> {booking.visitorName}
+          </span>
         </p>
         <p>
-          <strong>Email :</strong> {booking.visitorEmail}
+          <span className="font-semibold text-gray-800">
+            <strong>Email :</strong> {booking.visitorEmail}
+          </span>
         </p>
         <p>
-          <strong>Date :</strong> {format(bookingDate, 'yyyy-MM-dd HH:mm:ss')}
+          <span className="font-semibold text-gray-800">
+            <strong>Date :</strong> {format(bookingDate, 'yyyy-MM-dd HH:mm:ss')}
+          </span>
         </p>
       </div>
 
-      <Button onClick={() => router.push('/')}>Retour à l’accueil</Button>
+      <Button
+        className="rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 p-4 text-[12px] font-semibold cursor-pointer text-white shadow-lg shadow-indigo-400/50 transition duration-300 ease-in-out hover:scale-105 sm:text-sm md:p-6 md:text-lg"
+        onClick={() => router.push('/')}
+      >
+        Retour à l’accueil
+      </Button>
     </div>
   );
 };

@@ -6,6 +6,7 @@ import { Form } from '@/lib/Form';
 import { getDayName } from '@/lib/getDayName';
 import { AvailabilitySchema, AvailabilityType } from '@/schema/availability.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Ban, PenLine } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 
 type AvailabilityEditFormType = {
@@ -18,7 +19,6 @@ export const AvailabilityEditForm = ({ initialValues, onSubmit, onCancel }: Avai
     resolver: zodResolver(AvailabilitySchema),
     defaultValues: initialValues,
   });
-  console.log('initialValues :::: ', initialValues);
 
   const { setValue } = form;
 
@@ -29,74 +29,81 @@ export const AvailabilityEditForm = ({ initialValues, onSubmit, onCancel }: Avai
 
   return (
     <Form
-      className="grid grid-cols-3 gap-4 items-end"
+      className="space-y-4"
       form={form}
       onSubmit={async (values) => {
         setValue('dayOfWeek', initialValues.dayOfWeek, { shouldValidate: true });
         await handleSubmit(values);
       }}
     >
-      <FormField
-        control={form.control}
-        name="dayOfWeek"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Jour de la semaine</FormLabel>
-            <Select disabled value={String(field.value)} onValueChange={field.onChange}>
-              <FormControl>
-                <SelectTrigger>
-                  {/* Affiche le jour correspondant à la valeur */}
-                  {getDayName(Number(field.value))}
-                </SelectTrigger>
-              </FormControl>
-              <SelectContent>
-                {Array.from({ length: 7 }).map((_, index) => (
-                  <SelectItem key={index} value={String(index)}>
-                    {getDayName(index)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <FormField
-        control={form.control}
-        name="startTime"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Heure de début</FormLabel>
-            <FormControl>
-              <Input placeholder="09:00" {...field} type="time" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={form.control}
-        name="endTime"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Heure de fin</FormLabel>
-            <FormControl>
-              <Input placeholder="10:00" {...field} type="time" />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-      <Button type="submit" className="col-span-3">
-        {' '}
-        {initialValues ? 'Modifier' : 'Ajouter'}{' '}
-      </Button>
-      {onCancel && (
-        <Button type="button" onClick={onCancel} variant="ghost" className="col-span-3">
-          Annuler
-        </Button>
-      )}
+      <div className="flex flex-wrap items-end gap-4">
+        <div className="flex-1 min-w-[200px]">
+          <FormField
+            control={form.control}
+            name="dayOfWeek"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Jour de la semaine</FormLabel>
+                <Select disabled value={String(field.value)} onValueChange={field.onChange}>
+                  <FormControl>
+                    <SelectTrigger className="w-full">{getDayName(Number(field.value))}</SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {Array.from({ length: 7 }).map((_, index) => (
+                      <SelectItem key={index} value={String(index)}>
+                        {getDayName(index)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex-1 min-w-[150px]">
+          <FormField
+            control={form.control}
+            name="startTime"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Heure de début</FormLabel>
+                <FormControl>
+                  <Input placeholder="09:00" {...field} type="time" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex-1 min-w-[150px]">
+          <FormField
+            control={form.control}
+            name="endTime"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Heure de fin</FormLabel>
+                <FormControl>
+                  <Input placeholder="10:00" {...field} type="time" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex gap-2">
+          <Button type="submit" variant="ghost" className="w-fit">
+            <PenLine className="size-5" />
+            Modifier
+          </Button>
+          {onCancel && (
+            <Button type="button" onClick={onCancel} variant="ghost" className="w-fit">
+              <Ban className="size-5" />
+              Annuler
+            </Button>
+          )}
+        </div>
+      </div>
     </Form>
   );
 };

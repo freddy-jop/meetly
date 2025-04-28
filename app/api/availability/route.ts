@@ -84,8 +84,6 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const userName = searchParams.get('username');
 
-  console.log('userName::::: ', userName);
-
   if (!userName) {
     return new NextResponse('userName not Found', { status: 401 });
   }
