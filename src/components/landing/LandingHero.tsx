@@ -31,12 +31,12 @@ export const LandingHero = () => {
           <br />
           <span className="font-semibold text-gray-800">Mot de passe :</span> demomeetly
         </div>
-        <Link href="/login">
+        <Link href="/user/demo">
           <Button
             variant="secondary"
             className="rounded-full cursor-pointer bg-gradient-to-r from-green-400 to-emerald-500 p-4 text-[12px] font-semibold text-white shadow-lg shadow-emerald-400/50 transition duration-300 ease-in-out hover:scale-105 sm:text-sm md:p-6 md:text-lg"
           >
-            Se connecter en mode Démo
+            Réservez un créneau en mode Démo!
           </Button>
         </Link>
       </div>
