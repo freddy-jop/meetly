@@ -24,7 +24,7 @@ Built with **Next.js 15 App Router**, **Tailwind CSS**, **Shadcn UI**, **Prisma*
 | `BetterAuth`      | Simple email/password authentication            |
 | `Zustand`         | Lightweight state management                    |
 | `Axios`           | HTTP client for API communication               |
-| `eact Hot Toast`  | Notifications for user feedback                 |
+| `React Hot Toast`  | Notifications for user feedback                 |
 
 ---
 
