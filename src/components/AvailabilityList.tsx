@@ -1,6 +1,6 @@
 'use client';
 
-import AvailabilityItem from '@/components/AvailabilityEditItem';
+import { AvailabilityItem } from '@/components/AvailabilityEditItem';
 import { useAvailabilityStore } from '@/store/availability.store';
 import { Availability } from '@prisma/client';
 import { useShallow } from 'zustand/react/shallow';

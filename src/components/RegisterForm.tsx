@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
-export default function RegisterForm() {
+export const RegisterForm = () => {
   const router = useRouter();
   const form = useForm<RegisterType>({
     resolver: zodResolver(RegisterSchema),
@@ -134,4 +134,4 @@ export default function RegisterForm() {
       </Button>
     </Form>
   );
-}
+};

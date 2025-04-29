@@ -1,4 +1,4 @@
-import RegisterForm from '@/components/RegisterForm';
+import { RegisterForm } from '@/components/RegisterForm';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';

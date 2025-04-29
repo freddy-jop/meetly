@@ -40,7 +40,7 @@ import { toast } from 'react-hot-toast';
  * <VisitorCalendar username="john_doe" />
  * ```
  */
-export default function VisitorCalendar({ username }: UserNameType) {
+export const VisitorCalendar = ({ username }: UserNameType) => {
   const router = useRouter();
   const [availabilities, setAvailabilities] = useState<Availability[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
@@ -89,9 +89,9 @@ export default function VisitorCalendar({ username }: UserNameType) {
 
   const availableDays = Array.from(new Set(availabilities.map((a) => a.dayOfWeek)));
 
-  function isDayAvailable(date: Date) {
+  const isDayAvailable = (date: Date) => {
     return availableDays.includes(date.getDay());
-  }
+  };
 
   const { data: slotsData } = useQuery({
     queryKey: ['slots', username, selectedDate?.toISOString()],
@@ -113,7 +113,7 @@ export default function VisitorCalendar({ username }: UserNameType) {
   // Recupération des slots
   const slots = slotsData?.slots || [];
 
-  async function handleSubmit(values: BookingType) {
+  const handleSubmit = async (values: BookingType) => {
     try {
       if (!selectedDate) {
         toast.error('Sélectionne un jour disponible !');
@@ -143,7 +143,7 @@ export default function VisitorCalendar({ username }: UserNameType) {
       toast.error('Erreur lors de la réservation.');
       throw error;
     }
-  }
+  };
 
   return (
     <div className="space-y-6">
@@ -236,4 +236,4 @@ export default function VisitorCalendar({ username }: UserNameType) {
       )}
     </div>
   );
-}
+};

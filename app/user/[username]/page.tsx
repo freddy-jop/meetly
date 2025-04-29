@@ -1,4 +1,4 @@
-import VisitorCalendar from '@/components/VisitorCalendar';
+import { VisitorCalendar } from '@/components/VisitorCalendar';
 import { PageParams } from '@/lib/types';
 
 export default async function PublicBookingPage({ params }: PageParams<{ username: string }>) {

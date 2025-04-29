@@ -11,7 +11,7 @@ import { CalendarOff, PencilLine } from 'lucide-react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-export default function AvailabilityItem({ availability }: { availability: Availability }) {
+export const AvailabilityItem = ({ availability }: { availability: Availability }) => {
   const [editing, setEditing] = useState(false);
   const AvailabilityParseValues = AvailabilitySchema.safeParse({
     ...availability,
@@ -76,4 +76,4 @@ export default function AvailabilityItem({ availability }: { availability: Avail
       </div>
     </li>
   );
-}
+};

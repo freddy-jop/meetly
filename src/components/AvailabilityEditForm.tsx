@@ -22,10 +22,10 @@ export const AvailabilityEditForm = ({ initialValues, onSubmit, onCancel }: Avai
 
   const { setValue } = form;
 
-  async function handleSubmit(data: AvailabilityType) {
+  const handleSubmit = async (data: AvailabilityType) => {
     await onSubmit(data);
     form.reset();
-  }
+  };
 
   return (
     <Form

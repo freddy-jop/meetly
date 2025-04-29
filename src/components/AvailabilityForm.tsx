@@ -67,7 +67,7 @@ export const AvailabilityForm = ({ username }: UserNameType) => {
     },
   });
 
-  async function onSubmit(data: AvailabilityType) {
+  const onSubmit = async (data: AvailabilityType) => {
     try {
       const res = await axios.post('/api/availability', data);
 
@@ -80,7 +80,7 @@ export const AvailabilityForm = ({ username }: UserNameType) => {
       toast.error('Impossible d&aposajouter ce creneau.');
       throw error;
     }
-  }
+  };
 
   return (
     <Form
