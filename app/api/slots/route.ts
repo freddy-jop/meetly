@@ -51,6 +51,8 @@ export async function GET(req: Request) {
 
     const availableSlots: string[] = []; // Initialisation du tableau des créneaux disponibles
 
+    const now = new Date(); //On stocker date dans now hors de la boucle pour éviter de recalculer la date courante à chaque itération
+
     // Boucle sur chaque disponibilité pour générer les créneaux
     for (const slot of availabilities) {
       let current = slot.startTime; // Heure de départ du créneau
@@ -68,7 +70,7 @@ export async function GET(req: Request) {
         // Vérification que :
         // 1. Le créneau n'est pas déjà pris
         // 2. Le créneau est dans le futur par rapport à maintenant
-        if (!takenTimes.includes(formatted) && isBefore(new Date(), slotDate)) {
+        if (!takenTimes.includes(formatted) && isBefore(now, slotDate)) {
           availableSlots.push(formatted);
         }
 
