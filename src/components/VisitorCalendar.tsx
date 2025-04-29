@@ -19,6 +19,26 @@ import 'react-day-picker/dist/style.css';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
+/**
+ * @component BookingConfirmation
+ * @description Composant permettant aux utilisateurs de sélectionner une date et un créneau horaire pour réserver un rendez-vous.
+ * Affiche un calendrier avec les jours disponibles.
+ * Un formulaire pour collecter les informations de l'utilisateur,
+ * Gestion de la soumission des réservations via une API `/api/book`.
+ *
+ * @param username - Nom d'utilisateur identifiant la personne dont les disponibilités sont affichées.
+ * @returns JSX.Element - Interface de réservation avec calendrier `react-day-picker` et formulaire `react-hook-form` avec `zod`.
+ *
+ * @remarks
+ * - Utilise `react-day-picker` pour le calendrier, `react-hook-form` avec `zod` pour la validation du formulaire.
+ * - `react-query` pour les requêtes API, récupérant les créneaux horaires disponible via `/api/slots`.
+ * - Gestion des erreurs avec des notifications via `react-hot-toast`.
+ *
+ * @example
+ * ```tsx
+ * <VisitorCalendar username="john_doe" />
+ * ```
+ */
 export default function VisitorCalendar({ username }: UserNameType) {
   const router = useRouter();
   const [availabilities, setAvailabilities] = useState<Availability[]>([]);
@@ -34,9 +54,10 @@ export default function VisitorCalendar({ username }: UserNameType) {
   });
 
   const { watch, setValue } = form;
-  const emailValue = watch('email');
+  const emailValue = watch('email'); // On observe emailValue via watch
 
   useEffect(() => {
+    //Si l'email est valide, extrait la partie avant @ pour remplir le champ name.
     if (emailValue && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
       const [usernamePart] = emailValue.split('@');
       setValue('name', usernamePart, { shouldValidate: true });
@@ -150,7 +171,7 @@ export default function VisitorCalendar({ username }: UserNameType) {
         styles={{
           caption: { fontWeight: 'bold', fontSize: '1.25rem' }, // Titre mois/année
           head_cell: { fontWeight: 'bold', color: '#555' }, // Noms des jours (Lun, Mar, ...)
-          cell: { padding: '0.75rem' }, // Cellule jour
+          cell: { padding: '0.75rem' }, // Cellule des jours
         }}
       />
 
@@ -162,6 +183,7 @@ export default function VisitorCalendar({ username }: UserNameType) {
             await handleSubmit(values);
           }}
         >
+          {/* Champ name désactivé (pré-rempli à partir de l'email). */}
           <FormField
             control={form.control}
             name="name"
@@ -175,7 +197,6 @@ export default function VisitorCalendar({ username }: UserNameType) {
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="email"
@@ -189,7 +210,6 @@ export default function VisitorCalendar({ username }: UserNameType) {
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="date"
@@ -209,7 +229,6 @@ export default function VisitorCalendar({ username }: UserNameType) {
               </FormItem>
             )}
           />
-
           <Button type="submit" className="w-full">
             Confirmer le rendez-vous
           </Button>

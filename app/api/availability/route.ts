@@ -1,9 +1,15 @@
 import { prisma } from '@/auth/prisma';
-import { auth } from '@/lib/auth';
+import { auth } from '@/lib/auth'; //Fonction d'authentification
 import { AvailabilitySchema } from '@/schema/availability.schema';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 
+/**
+ * @function POST
+ * @description Ajoute une nouvelle disponibilité pour l'utilisateur connecté.
+ * @param {Request} request - Contient les données de disponibilité de l'utilisateur.
+ * @returns {Promise<NextResponse>} On envoie la nouvelle disponibilité ou une erreur.
+ */
 export async function POST(request: Request) {
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
@@ -24,7 +30,7 @@ export async function POST(request: Request) {
 
   const availabilityList = await prisma.availability.create({
     data: {
-      dayOfWeek: Number(dayOfWeek),
+      dayOfWeek: Number(dayOfWeek), // Conversion en entier dayOfWeek Int 0 - 6 (Sun - Sat)
       startTime: String(startTime),
       endTime: String(endTime),
       user: { connect: { id: session?.user.id } },
@@ -38,6 +44,12 @@ export async function POST(request: Request) {
   return NextResponse.json(availabilityList, { status: 200 });
 }
 
+/**
+ * @function PUT
+ * @description Mise à jour d'une disponibilité existante pour l'utilisateur connecté.
+ * @param {Request} request - La requête HTTP contient les données mises à jour.
+ * @returns {Promise<NextResponse>} On Retourne la disponibilité mise à jour ou une erreur.
+ */
 export async function PUT(request: Request) {
   const session = await auth.api.getSession({
     headers: await headers(), // you need to pass the headers object.
@@ -80,6 +92,12 @@ export async function PUT(request: Request) {
   return NextResponse.json(updatedAvailability, { status: 200 });
 }
 
+/**
+ * @function GET
+ * @description Récupération de toutes les disponibilités d'un utilisateur donné.
+ * @param {Request} request - La requête contenant username dans les paramètre d'url.
+ * @returns {Promise<NextResponse>} Récupération de la liste des disponibilités ou une erreur.
+ */
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const userName = searchParams.get('username');
@@ -105,6 +123,12 @@ export async function GET(request: Request) {
   return NextResponse.json(availabilities);
 }
 
+/**
+ * @function DELETE
+ * @description Suppression d'une disponibilité en envoyant son identifiant.
+ * @param {Request} request - Request contenant l'identifiant de la disponibilité à supprimer.
+ * @returns {Promise<NextResponse>} On récupère l'id de la disponibilité confirmant la suppression ou une erreur.
+ */
 export async function DELETE(request: Request) {
   const { searchParams } = new URL(request.url);
   const availabilityId = searchParams.get('availabilityId');

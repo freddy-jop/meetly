@@ -8,10 +8,16 @@ import { format } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+/**
+ * @component BookingConfirmation
+ * @description Affiche la confirmation de réservation pour un visiteur après la prise de rendez-vous.
+ * @param {VisitorType} visitor - Le nom du visiteur utilisé pour rechercher la réservation prise.
+ */
 export const BookingConfirmation = ({ visitor }: VisitorType) => {
-  const router = useRouter();
+  const router = useRouter(); // Initialisation du hook de navigation
   const [booking, setBooking] = useState<Appointment | null>(null);
 
+  // useEffect qui va chercher la dernière réservation effectuée pour le visiteur avec api/book
   useEffect(() => {
     const fetchLastBooking = async () => {
       try {
@@ -32,6 +38,7 @@ export const BookingConfirmation = ({ visitor }: VisitorType) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Si aucun rendez-vous trouvé, affichage d'un message + bouton de retour
   if (!booking) {
     return (
       <div className="flex flex-col items-center justify-center h-screen space-y-4">
@@ -46,13 +53,14 @@ export const BookingConfirmation = ({ visitor }: VisitorType) => {
     );
   }
 
-  const bookingDate = new Date(booking.date);
+  const bookingDate = new Date(booking.date); // Conversion de la date de la réservation pour affichage
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen space-y-6 px-4 text-center">
       <h1 className="text-3xl font-bold text-gray-500">Merci ! 🎉</h1>
       <p className="text-lg text-gray-500">Ton rendez-vous est confirmé !</p>
 
+      {/* Carte d'informations du rendez-vous */}
       <div className="bg-gray-100 rounded-lg p-6 shadow-md space-y-4">
         <p>
           <span className="font-semibold text-gray-800">

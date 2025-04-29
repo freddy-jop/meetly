@@ -29,7 +29,7 @@ export const LandingHero = () => {
           <br />
           <span className="font-semibold text-gray-800">Email :</span> demo@meety.com
           <br />
-          <span className="font-semibold text-gray-800">Mot de passe :</span> demo
+          <span className="font-semibold text-gray-800">Mot de passe :</span> demomeetly
         </div>
         <Link href="/login">
           <Button

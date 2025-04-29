@@ -28,7 +28,6 @@ export default function RegisterForm() {
   const { watch, setValue } = form;
   const emailValue = watch('email');
 
-  // 🔥 Génération automatique du username
   useEffect(() => {
     if (emailValue && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue)) {
       const [usernamePart] = emailValue.split('@');
@@ -48,9 +47,9 @@ export default function RegisterForm() {
             name: form.username, // user display name
           },
           {
-            onSuccess: (ctx) => {
+            onSuccess: () => {
               //redirect to the dashboard or sign in page
-              toast.success(`Registration is successed with ${ctx.response}`);
+              toast.success(`Inscritption réussie, redirection en cours...`);
               router.push('/dashboard');
             },
             onError: (ctx) => {

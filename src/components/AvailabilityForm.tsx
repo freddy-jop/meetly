@@ -21,11 +21,19 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { useShallow } from 'zustand/react/shallow';
 
+/**
+ * @component AvailabilityForm
+ * @description Formulaire permettant d'ajouter des créneaux de disponibilités pour un utilisateur donné.
+ * @param {UserNameType} username - L'identifiant (username) de l'utilisateur connecté.
+ */
 export const AvailabilityForm = ({ username }: UserNameType) => {
+  // Accès aux jours désactivés pour gérer les disponibilités d'un utilisateur
   const disabledDays = useAvailabilityStore(useShallow((state) => state.disabledDays));
+
   const setCheckAvailabilityList = useAvailabilityStore(useShallow((state) => state.setCheckAvailabilityList));
   const checkAvailabilityList = useAvailabilityStore(useShallow((state) => state.checkAvailabilityList));
 
+  // Initialisation du formulaire avec react-hook-form + schéma zod/Types
   const form = useForm<AvailabilityType>({
     resolver: zodResolver(AvailabilitySchema),
     defaultValues: {
@@ -64,6 +72,7 @@ export const AvailabilityForm = ({ username }: UserNameType) => {
       const res = await axios.post('/api/availability', data);
 
       const availabilityUpdated: Availability = res.data ?? [];
+      // Mise à jour du store Zustand avec la nouvelle disponibilité
       updateAvailabilitiesAndDisabledDays([availabilityUpdated]);
       toast.success('Créneau ajouté.');
       form.reset();
@@ -77,11 +86,12 @@ export const AvailabilityForm = ({ username }: UserNameType) => {
     <Form
       className="space-y-4"
       form={form}
-      disabled={disabledDays.length >= 7} // Tous les jours sont pris
+      disabled={disabledDays.length >= 7} // Désactive tout le form si les 7 jours sont pris
       onSubmit={async (values) => {
         await onSubmit(values);
       }}
     >
+      {/* Sélection du jour de la semaine */}
       <FormField
         control={form.control}
         name="dayOfWeek"
@@ -120,6 +130,7 @@ export const AvailabilityForm = ({ username }: UserNameType) => {
           </FormItem>
         )}
       />
+      {/* Champs pour définir heure de début et heure de fin */}
       <div className="grid grid-cols-2 gap-4">
         <FormField
           control={form.control}
