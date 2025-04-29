@@ -4,6 +4,7 @@ import { TimeSlots } from '@/components/TimeSlots';
 import { Button } from '@/components/ui/button';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { calendarClasses } from '@/lib/calendarClasses';
 import { Form } from '@/lib/Form';
 import { UserNameType } from '@/lib/types';
 import { BookingSchema, BookingType } from '@/schema/booking.schema';
@@ -15,7 +16,7 @@ import { format, isBefore } from 'date-fns';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
-import 'react-day-picker/dist/style.css';
+import 'react-day-picker/src/style.css';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
@@ -146,34 +147,33 @@ export default function VisitorCalendar({ username }: UserNameType) {
 
   return (
     <div className="space-y-6">
-      <DayPicker
-        selected={selectedDate}
-        onSelect={setSelectedDate}
-        mode="single"
-        modifiers={{
-          available: isDayAvailable,
-          weekend: (date) => [0, 6].includes(date.getDay()), // Dimanche/Samedi
-        }}
-        modifiersClassNames={{
-          available: 'font-bold text-blue-600', // Jours disponibles en bleu
-          selected: 'font-bold text-white bg-blue-600 rounded-full', // Date sélectionnée en bleu plein
-          today: 'text-red-500 font-bold', // Aujourd'hui en rouge
-          weekend: 'text-indigo-600', // Weekend en gris
-        }}
-        disabled={(date) => {
-          const today = new Date();
-          today.setHours(0, 0, 0, 0); // Ignore l'heure pour comparaison
-          return (
-            isBefore(date, today) || // Bloque toutes les dates passées
-            !isDayAvailable(date) // Bloque les jours non disponibles
-          );
-        }}
-        styles={{
-          caption: { fontWeight: 'bold', fontSize: '1.25rem' }, // Titre mois/année
-          head_cell: { fontWeight: 'bold', color: '#555' }, // Noms des jours (Lun, Mar, ...)
-          cell: { padding: '0.75rem' }, // Cellule des jours
-        }}
-      />
+      <div className="flex flex-col items-center justify-center">
+        <DayPicker
+          classNames={calendarClasses}
+          selected={selectedDate}
+          onSelect={setSelectedDate}
+          mode="single"
+          modifiers={{
+            available: isDayAvailable,
+            weekend: (date) => [0, 6].includes(date.getDay()), // Dimanche/Samedi
+          }}
+          modifiersClassNames={{
+            available: calendarClasses.available, // Jours disponibles en bleu
+            selected: calendarClasses.selected, // Date sélectionnée en bleu plein
+            today: calendarClasses.today, // Aujourd'hui en rouge
+            weekend: calendarClasses.weekend, // Weekend en gris
+            disabled: calendarClasses.disabled, // bloqué les disponibilité des dates passées
+          }}
+          disabled={(date) => {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0); // Ignore l'heure pour comparaison
+            return (
+              isBefore(date, today) || // Bloque toutes les dates passées
+              !isDayAvailable(date) // Bloque les jours non disponibles
+            );
+          }}
+        />
+      </div>
 
       {selectedDate && (
         <Form

@@ -4,8 +4,13 @@ import { PageParams } from '@/lib/types';
 export default async function PublicBookingPage({ params }: PageParams<{ username: string }>) {
   const { username } = await params;
   return (
-    <main className="max-w-xl mx-auto p-6 space-y-4">
-      <h1 className="text-3xl font-bold">Prendre rendez-vous avec {username}</h1>
+    <main className="max-w-2xl mx-auto p-6 space-y-4">
+      <h1 className="text-3xl font-bold flex flex-col items-center justify-center">
+        Prendre rendez-vous avec
+        <span className="rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 p-4 text-sm font-semibold cursor-pointer text-white shadow-lg shadow-indigo-400/50 transition duration-300 ease-in-out hover:scale-105 sm:text-sm md:p-6 md:text-lg">
+          {username}
+        </span>
+      </h1>
       <VisitorCalendar username={username} />
     </main>
   );
