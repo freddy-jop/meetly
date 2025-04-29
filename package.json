@@ -12,7 +12,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "prisma generate && prisma migrate deploy && next build"
+    "vercel-build": "prisma generate && prisma migrate deploy && next build",
+    "doc": "typedoc --entryPoints src/**/*.ts app/**/*.ts src/**/*.tsx app/**/*.tsx --out docs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
@@ -51,6 +52,8 @@
     "prisma": "^6.6.0",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.2.8",
+    "typedoc": "^0.27.9",
+    "typedoc-umlclass": "^0.10.1",
     "typescript": "^5"
   }
 }

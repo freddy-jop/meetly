@@ -1,0 +1,22 @@
+{
+    "entryPoints": [
+        "src"
+    ],
+    "out": "docs",
+    "includeVersion": true,
+    "excludePrivate": true,
+    "excludeProtected": false,
+    "excludeInternal": true,
+    "excludeExternals": true,
+    "hideGenerator": true,
+    "readme": "none",
+    "plugin": [
+        "typedoc-umlclass"
+    ],
+    "umlClassDiagram": {
+        "type": "detailed",
+        "location": "local",
+        "format": "svg",
+    },
+    "tsconfig": "tsconfig.json",
+}

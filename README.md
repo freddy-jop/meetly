@@ -127,4 +127,5 @@ Built with **Next.js 15 App Router**, **Tailwind CSS**, **Shadcn UI**, **Prisma*
 git clone https://github.com/freddy-jop/meetly.git
 cd meetly
 npm install
+npm run doc
 npm run dev
