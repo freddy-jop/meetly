@@ -10,7 +10,7 @@ import Link from 'next/link';
 export const DashboardSection = ({ username }: UserNameType) => {
   const baseUrl = new URL(getServerUrl());
   return (
-    <main className="max-w-4xl mx-auto p-6 space-y-10 mt-10">
+    <main className="w-full max-w-5xl mx-auto p-6 space-y-10 mt-10">
       <h1 className="text-3xl font-bold text-center">Tableau de bord</h1>
 
       <section className="space-y-4 flex items-center justify-center">
@@ -25,18 +25,24 @@ export const DashboardSection = ({ username }: UserNameType) => {
         </Link>
       </section>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold mb-2">Ajouter des disponibilités</h2>
+      <section className="bg-white shadow-xl rounded-2xl px-6 py-8 mx-auto space-y-6">
+        <div className="border-b border-gray-200 pb-4">
+          <h2 className="text-2xl font-semibold text-gray-800">Ajouter des disponibilités</h2>
+        </div>
         <AvailabilityForm username={username} />
       </section>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold">Vos créneaux disponibles</h2>
+      <section className="bg-white shadow-xl rounded-2xl px-6 py-8 mx-auto space-y-6">
+        <div className="border-b border-gray-200 pb-4">
+          <h2 className="text-2xl font-semibold text-gray-800">Vos créneaux disponibles</h2>
+        </div>
         <AvailabilityList />
       </section>
 
-      <section className="space-y-4">
-        <h2 className="text-xl font-semibold">Vos rendez-vous pris</h2>
+      <section className="bg-white shadow-xl rounded-2xl px-6 py-8 mx-auto space-y-6">
+        <div className="border-b border-gray-200 pb-4">
+          <h2 className="text-2xl font-semibold text-gray-800">Vos rendez-vous pris</h2>
+        </div>
         <AppointmentList />
       </section>
     </main>

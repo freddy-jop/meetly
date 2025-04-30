@@ -147,7 +147,7 @@ export const VisitorCalendar = ({ username }: UserNameType) => {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center px-6 py-8 space-y-6 bg-white shadow-xl rounded-2xl mt-5">
         <DayPicker
           classNames={calendarClasses}
           selected={selectedDate}
@@ -176,63 +176,65 @@ export const VisitorCalendar = ({ username }: UserNameType) => {
       </div>
 
       {selectedDate && (
-        <Form
-          className="space-y-6"
-          form={form}
-          onSubmit={async (values) => {
-            await handleSubmit(values);
-          }}
-        >
-          {/* Champ name désactivé (pré-rempli à partir de l'email). */}
-          <FormField
-            control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nom</FormLabel>
-                <FormControl>
-                  <Input {...field} disabled />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input type="email" {...field} placeholder="Votre email" />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="date"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Créneau horaire</FormLabel>
-                <FormControl>
-                  <TimeSlots
-                    userId={username ?? ''}
-                    date={format(selectedDate, 'yyyy-MM-dd')}
-                    slots={slots} // Utilisation de la liste des créneaux récupérés
-                    onSelect={(date) => field.onChange(date)}
-                    selectedTime={field.value}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="w-full">
-            Confirmer le rendez-vous
-          </Button>
-        </Form>
+        <div className="px-6 py-8 space-y-6 bg-white shadow-xl rounded-2xl mt-5">
+          <Form
+            className="space-y-6"
+            form={form}
+            onSubmit={async (values) => {
+              await handleSubmit(values);
+            }}
+          >
+            {/* Champ name désactivé (pré-rempli à partir de l'email). */}
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nom</FormLabel>
+                  <FormControl>
+                    <Input {...field} disabled />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <Input type="email" {...field} placeholder="Votre email" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="date"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Créneau horaire</FormLabel>
+                  <FormControl>
+                    <TimeSlots
+                      userId={username ?? ''}
+                      date={format(selectedDate, 'yyyy-MM-dd')}
+                      slots={slots} // Utilisation de la liste des créneaux récupérés
+                      onSelect={(date) => field.onChange(date)}
+                      selectedTime={field.value}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button type="submit" className="w-full">
+              Confirmer le rendez-vous
+            </Button>
+          </Form>
+        </div>
       )}
     </div>
   );

@@ -103,7 +103,7 @@ export const AvailabilityForm = ({ username }: UserNameType) => {
               value={String(field.value)}
               disabled={disabledDays.length >= 7} // Tous les jours sont pris
             >
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full rounded-lg text-gray-700 border-gray-300 shadow-md focus:ring-2 hover:focus:ring-blue-500 hover:focus:border-blue-500">
                 <SelectValue placeholder="Choisir un jour" />
               </SelectTrigger>
               <SelectContent>
@@ -139,7 +139,12 @@ export const AvailabilityForm = ({ username }: UserNameType) => {
             <FormItem>
               <FormLabel>Heure de début</FormLabel>
               <FormControl>
-                <Input placeholder="09:00" {...field} type="time" />
+                <Input
+                  placeholder="09:00"
+                  {...field}
+                  type="time"
+                  className="rounded-lg text-gray-700 border-gray-300 shadow-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -153,7 +158,12 @@ export const AvailabilityForm = ({ username }: UserNameType) => {
             <FormItem>
               <FormLabel>Heure de fin</FormLabel>
               <FormControl>
-                <Input placeholder="10:00" {...field} type="time" />
+                <Input
+                  placeholder="10:00"
+                  {...field}
+                  type="time"
+                  className="rounded-lg text-gray-700 border-gray-300 shadow-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

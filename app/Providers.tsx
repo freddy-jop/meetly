@@ -11,11 +11,15 @@ export type ProvidersProps = PropsWithChildren;
 
 export const Providers = (props: ProvidersProps) => {
   return (
-    <div>
-      <QueryClientProvider client={queryClient}>
-        <Toaster position="bottom-center" />
-        {props.children}
-      </QueryClientProvider>
-    </div>
+    <main className="min-h-screen">
+      <div className="flex min-h-screen flex-col bg-cover bg-center">
+        <div className="mx-auto w-full max-w-7xl px-6 py-12">
+          <QueryClientProvider client={queryClient}>
+            <Toaster position="bottom-center" />
+            {props.children}
+          </QueryClientProvider>
+        </div>
+      </div>
+    </main>
   );
 };

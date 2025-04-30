@@ -12,5 +12,5 @@ export const calendarClasses = {
   selected: 'text-white font-semibold bg-blue-600 rounded-full', // Date sélectionnée en bleu plein
   today: 'text-red-500 font-bold border border-red-500', // Aujourd'hui en rouge
   weekend: 'text-indigo-600', // Weekend en gris
-  disabled: 'text-gray-200', // bloqué les disponibilité des dates passées
+  disabled: 'text-gray-800', // bloqué les disponibilité des dates passées
 };

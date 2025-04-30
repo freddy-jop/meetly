@@ -68,7 +68,7 @@ export const LoginForm = () => {
                 type="email"
                 {...field}
                 disabled={isPendingLogin}
-                className="rounded-lg text-gray-700 border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="rounded-lg text-gray-700 border-gray-300 shadow-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               />
             </FormControl>
             <FormMessage />
@@ -86,7 +86,7 @@ export const LoginForm = () => {
                 type="password"
                 {...field}
                 disabled={isPendingLogin}
-                className="rounded-lg text-gray-700 border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                className="rounded-lg text-gray-700 border-gray-300 shadow-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
             </FormControl>
             <FormMessage />
@@ -95,7 +95,7 @@ export const LoginForm = () => {
       />
       <Button
         type="submit"
-        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition disabled:opacity-50"
+        className="w-full text-white font-bold py-3 rounded-lg transition disabled:opacity-50"
         disabled={isPendingLogin}
       >
         {isPendingLogin ? 'Connexion...' : 'Se connecter'}
