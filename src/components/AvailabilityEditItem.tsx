@@ -53,18 +53,35 @@ export const AvailabilityItem = ({ availability }: { availability: Availability 
 
   if (editing && AvailabilityParseValues.data && AvailabilityParseValues.success) {
     return (
-      <AvailabilityEditForm
-        initialValues={AvailabilityParseValues.data}
-        onSubmit={handleUpdate}
-        onCancel={() => setEditing(false)}
-      />
+      <li className="border p-4 rounded flex justify-between items-center">
+        <AvailabilityEditForm
+          initialValues={AvailabilityParseValues.data}
+          onSubmit={handleUpdate}
+          onCancel={() => setEditing(false)}
+        />
+      </li>
     );
   }
 
   return (
     <li className="border p-4 rounded flex justify-between items-center">
-      <div>{`${getDayName(Number(availability.dayOfWeek))} — ${availability.startTime} à ${availability.endTime}`}</div>
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-4 items-end text-sm text-muted-foreground">
+        <div className="flex-1 min-w-[200px]">
+          <label className="block text-xs font-medium text-muted-foreground mb-1">Jour de la semaine</label>
+          <div className="px-3 py-2 border rounded bg-gray-200 text-foreground">
+            {getDayName(Number(availability.dayOfWeek))}
+          </div>
+        </div>
+        <div className="flex-1 min-w-[200px]">
+          <label className="block text-xs font-medium text-muted-foreground mb-1">Heure de début</label>
+          <div className="px-3 py-2 border rounded bg-gray-200 text-foreground">{availability.startTime}</div>
+        </div>
+        <div className="flex-1 min-w-[200px]">
+          <label className="block text-xs font-medium text-muted-foreground mb-1">Heure de fin</label>
+          <div className="px-3 py-2 border rounded bg-gray-200 text-foreground">{availability.endTime}</div>
+        </div>
+      </div>
+      <div className="flex gap-2 mt-5">
         <Button variant="outline" onClick={() => setEditing(true)}>
           <PencilLine className="size-5" />
           Modifier

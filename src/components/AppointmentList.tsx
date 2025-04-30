@@ -27,8 +27,19 @@ export const AppointmentList = () => {
   return (
     <ul className="space-y-2">
       {data.map((appt: any) => (
-        <li key={appt.id} className="border p-3 rounded">
-          {appt.visitorName} — {new Date(appt.date).toLocaleString()}
+        <li key={appt.id} className="border p-4 rounded-lg shadow-sm bg-background flex justify-between items-center">
+          <div className="font-bold text-white rounded-full bg-gradient-to-r from-blue-400 to-indigo-400 p-2 pr-8 pl-8">
+            {appt.visitorName}
+          </div>
+          <div className="text-md text-muted-foreground">
+            {new Date(appt.date).toLocaleString('fr-FR', {
+              weekday: 'long',
+              day: 'numeric',
+              month: 'long',
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
+          </div>
         </li>
       ))}
     </ul>

@@ -8,9 +8,9 @@ export const calendarClasses = {
   row: 'flex w-full justify-between',
   cell: 'w-full aspect-square flex items-center justify-center p-2 rounded-md hover:bg-blue-50 transition',
   day: 'w-20 h-15 p-4',
-  available: 'font-bold text-blue-600', // Jours disponibles en bleu
+  available: 'font-bold text-blue-600 rounded-full hover:bg-gray-100 transition', // Jours disponibles en bleu
   selected: 'text-white font-semibold bg-blue-600 rounded-full', // Date sélectionnée en bleu plein
-  today: 'text-red-500 font-bold border border-red-500', // Aujourd'hui en rouge
+  today: 'text-red-500 font-bold', // Aujourd'hui en rouge
   weekend: 'text-indigo-600', // Weekend en gris
   disabled: 'text-gray-800', // bloqué les disponibilité des dates passées
 };

@@ -13,6 +13,7 @@ import { Availability } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { format, isBefore } from 'date-fns';
+import { CalendarPlus2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
@@ -177,6 +178,16 @@ export const VisitorCalendar = ({ username }: UserNameType) => {
 
       {selectedDate && (
         <div className="px-6 py-8 space-y-6 bg-white shadow-xl rounded-2xl mt-5">
+          <div className="border-b border-gray-200 pb-4 flex items-center justify-center gap-5">
+            <CalendarPlus2 className="size-8" />
+            <h2 className="text-2xl font-semibold text-gray-800">
+              {new Date(selectedDate).toLocaleString('fr-FR', {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+              })}
+            </h2>
+          </div>
           <Form
             className="space-y-6"
             form={form}

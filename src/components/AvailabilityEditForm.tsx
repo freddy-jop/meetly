@@ -6,7 +6,7 @@ import { Form } from '@/lib/Form';
 import { getDayName } from '@/lib/getDayName';
 import { AvailabilitySchema, AvailabilityType } from '@/schema/availability.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Ban, PenLine } from 'lucide-react';
+import { Ban, CheckCheck } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 
 type AvailabilityEditFormType = {
@@ -61,7 +61,7 @@ export const AvailabilityEditForm = ({ initialValues, onSubmit, onCancel }: Avai
             )}
           />
         </div>
-        <div className="flex-1 min-w-[150px]">
+        <div className="flex-1 min-w-[200px]">
           <FormField
             control={form.control}
             name="startTime"
@@ -76,7 +76,7 @@ export const AvailabilityEditForm = ({ initialValues, onSubmit, onCancel }: Avai
             )}
           />
         </div>
-        <div className="flex-1 min-w-[150px]">
+        <div className="flex-1 min-w-[200px]">
           <FormField
             control={form.control}
             name="endTime"
@@ -91,10 +91,10 @@ export const AvailabilityEditForm = ({ initialValues, onSubmit, onCancel }: Avai
             )}
           />
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 ml-5">
           <Button type="submit" variant="ghost" className="w-fit">
-            <PenLine className="size-5" />
-            Modifier
+            <CheckCheck className="size-5" />
+            Valider
           </Button>
           {onCancel && (
             <Button type="button" onClick={onCancel} variant="ghost" className="w-fit">
