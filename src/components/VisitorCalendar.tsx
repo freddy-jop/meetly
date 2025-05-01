@@ -13,7 +13,7 @@ import { Availability } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { format, isBefore } from 'date-fns';
-import { CalendarPlus2 } from 'lucide-react';
+import { CalendarCheck, CalendarPlus2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { DayPicker } from 'react-day-picker';
@@ -242,7 +242,8 @@ export const VisitorCalendar = ({ username }: UserNameType) => {
               )}
             />
             <Button type="submit" className="w-full">
-              Confirmer le rendez-vous
+              <CalendarCheck className="size-5 mr-2" />
+              <span className="font-semibold">Confirmer le rendez-vous</span>
             </Button>
           </Form>
         </div>

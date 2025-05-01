@@ -97,7 +97,7 @@ export const AvailabilityForm = ({ username }: UserNameType) => {
         name="dayOfWeek"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Jour de la semaine</FormLabel>
+            <FormLabel className="block text-xs font-medium text-muted-foreground mb-1">Jour de la semaine</FormLabel>
             <Select
               onValueChange={field.onChange}
               value={String(field.value)}
@@ -137,7 +137,7 @@ export const AvailabilityForm = ({ username }: UserNameType) => {
           name="startTime"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Heure de début</FormLabel>
+              <FormLabel className="block text-xs font-medium text-muted-foreground mb-1">Heure de début</FormLabel>
               <FormControl>
                 <Input
                   placeholder="09:00"
@@ -156,7 +156,7 @@ export const AvailabilityForm = ({ username }: UserNameType) => {
           name="endTime"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Heure de fin</FormLabel>
+              <FormLabel className="block text-xs font-medium text-muted-foreground mb-1">Heure de fin</FormLabel>
               <FormControl>
                 <Input
                   placeholder="10:00"

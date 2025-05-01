@@ -21,9 +21,10 @@ export const TimeSlots: React.FC<TimeSlotsProps> = ({ slots, onSelect, selectedT
           slots.map((slot) => (
             <Button
               key={slot}
+              role="button"
               variant={selectedTime === slot ? 'default' : 'outline'} // Si le créneau est sélectionné, appliquer un style différent
               onClick={() => onSelect(slot)} // Met à jour le créneau sélectionné
-              className="w-full"
+              className={`w-full px-4 py-2 ${selectedTime === slot ? 'text-blue-700 font-bold bg-slate-300' : 'text-black bg-blue-100'} rounded-2xl shadow hover:bg-slate-300 transition`}
             >
               {slot}
             </Button>

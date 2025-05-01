@@ -9,6 +9,7 @@ import { LoginSchema, LoginType } from '@/schema/login.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
+import { Zap } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
@@ -98,6 +99,7 @@ export const LoginForm = () => {
         className="w-full text-white font-bold py-3 rounded-lg transition disabled:opacity-50"
         disabled={isPendingLogin}
       >
+        <Zap className="size-5" />
         {isPendingLogin ? 'Connexion...' : 'Se connecter'}
       </Button>
     </Form>
