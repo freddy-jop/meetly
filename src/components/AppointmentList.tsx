@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
+import { LoaderEffectUpgrade } from '@/components/LoaderEffectUpgrade';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -22,7 +23,7 @@ export const AppointmentList = () => {
     },
   });
 
-  if (isPending) return <p>Chargement...</p>;
+  if (isPending) return <LoaderEffectUpgrade />;
 
   return (
     <ul className="space-y-2">

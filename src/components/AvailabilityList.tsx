@@ -8,7 +8,12 @@ import { useShallow } from 'zustand/react/shallow';
 export const AvailabilityList = () => {
   const availabilityList = useAvailabilityStore(useShallow((state) => state.availabilityList));
 
-  if (!availabilityList) return <p>Chargement des disponibilités en cours...</p>;
+  if (!availabilityList.length)
+    return (
+      <div className="flex items-center justify-center text-lg font-medium text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600">
+        Aucune disponibilité pour le moment.
+      </div>
+    );
 
   return (
     <ul className="space-y-3">

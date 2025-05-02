@@ -1,16 +1,17 @@
 'use client';
 
+import { LoaderEffectUpgrade } from '@/components/LoaderEffectUpgrade';
 import { Button } from '@/components/ui/button';
 
 type TimeSlotsProps = {
-  userId: string;
-  date: string;
   slots: string[]; // Liste des créneaux horaires disponibles
   onSelect: (time: string) => void; // Fonction pour mettre à jour la sélection d'heure
   selectedTime: string; // Heure sélectionnée
 };
 
 export const TimeSlots: React.FC<TimeSlotsProps> = ({ slots, onSelect, selectedTime }) => {
+  if (!slots.length && !selectedTime) return <LoaderEffectUpgrade />;
+
   return (
     <div className="space-y-4">
       <div className="text-lg font-medium">Sélectionner un créneau horaire</div>
@@ -21,6 +22,7 @@ export const TimeSlots: React.FC<TimeSlotsProps> = ({ slots, onSelect, selectedT
           slots.map((slot) => (
             <Button
               key={slot}
+              name={slot}
               role="button"
               variant={selectedTime === slot ? 'default' : 'outline'} // Si le créneau est sélectionné, appliquer un style différent
               onClick={() => onSelect(slot)} // Met à jour le créneau sélectionné

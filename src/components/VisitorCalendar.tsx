@@ -230,8 +230,6 @@ export const VisitorCalendar = ({ username }: UserNameType) => {
                   <FormLabel>Créneau horaire</FormLabel>
                   <FormControl>
                     <TimeSlots
-                      userId={username ?? ''}
-                      date={format(selectedDate, 'yyyy-MM-dd')}
                       slots={slots} // Utilisation de la liste des créneaux récupérés
                       onSelect={(date) => field.onChange(date)}
                       selectedTime={field.value}
