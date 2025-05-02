@@ -1,0 +1,11 @@
+# robots.txt for https://meetly-two.vercel.app/
+# Updated: 2025-04
+
+User-agent: *
+Disallow: /api/
+Disallow: /dashboard/
+Disallow: /login
+Disallow: /register
+Disallow: /confirmation/
+Disallow: /favicon.ico
+Allow: /

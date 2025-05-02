@@ -21,6 +21,11 @@ export const metadata: Metadata = {
   icons: {
     icon: '/images/meetly-favicon.png',
   },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+  },
   applicationName: 'Meetly',
   creator: 'JOPHA Fredy',
   authors: [{ name: 'JOPHA Fredy', url: 'https://meetly-two.vercel.app' }],
